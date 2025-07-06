@@ -29,9 +29,13 @@ public class Product {
   Long id;
 
   //TODO: 실습을  위해 임시로 주석처리
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id")
-  private Category categoryId;
+  //@ManyToOne(fetch = FetchType.LAZY)
+  //@JoinColumn(name = "category_id")
+  //private Category category;
+
+  //TODO: 실습을 위한 임시 컬럼입니다. (실제론 이렇게 작업하면 안됩니다.), Long으로만 처리하면 별도 조회로직구현필요하여 JPA 답지않음
+  @Column(nullable = false)
+  Long categoryId;
 
   @Column(nullable = false)
   String name;
@@ -55,7 +59,7 @@ public class Product {
 
   @Builder
   public Product(
-      Category categoryId,
+      Long categoryId,
       String name,
       String description,
       BigDecimal price,

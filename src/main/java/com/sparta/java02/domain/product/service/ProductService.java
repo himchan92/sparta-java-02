@@ -26,7 +26,12 @@ public class ProductService {
 
     return ProductResponse.builder()
             .id(product.getId())
-            //.categoryId(product.getCategoryId())
+            .categoryId(product.getCategoryId())
+            .name(product.getName())
+            .description(product.getDescription())
+            .price(product.getPrice())
+            .stock(product.getStock())
+            .createdAt(product.getCreatedAt())
             .build();
   }
 
