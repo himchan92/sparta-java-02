@@ -1,7 +1,10 @@
 package com.sparta.java02.domain.product.service;
 
+import com.sparta.java02.common.exception.ServiceException;
+import com.sparta.java02.common.exception.ServiceExceptionCode;
 import com.sparta.java02.domain.product.dto.ProductRequest;
 import com.sparta.java02.domain.product.dto.ProductResponse;
+import com.sparta.java02.domain.product.entity.Product;
 import com.sparta.java02.domain.product.repository.ProductRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +21,13 @@ public class ProductService {
   }
 
   public ProductResponse getById(Long id) {
-    return null;
+    Product product = productRepository.findById(id)
+            .orElseThrow(() -> new ServiceException(ServiceExceptionCode.NOT_FOUND_PRODUCT));
+
+    return ProductResponse.builder()
+            .id(product.getId())
+            //.categoryId(product.getCategoryId())
+            .build();
   }
 
   public ProductResponse create(ProductRequest product) {

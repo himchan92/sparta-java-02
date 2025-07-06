@@ -31,7 +31,7 @@ public class Product {
   //TODO: 실습을  위해 임시로 주석처리
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id")
-  private Category category;
+  private Category categoryId;
 
   @Column(nullable = false)
   String name;
@@ -55,13 +55,13 @@ public class Product {
 
   @Builder
   public Product(
-      Category category,
+      Category categoryId,
       String name,
       String description,
       BigDecimal price,
       Integer stock
   ) {
-    this.category = category;
+    this.categoryId = categoryId;
     this.name = name;
     this.description = description;
     this.price = price;
