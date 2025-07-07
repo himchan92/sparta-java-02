@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PurchaseProductRepository extends JpaRepository<PurchaseProduct, Long> {
 
+  //purchaseId 조회 의미로 purchaseId가 있어야 가능
   List<PurchaseProduct> findByPurchase_Id(Long purchaseId);
 }
