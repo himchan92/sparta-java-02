@@ -16,7 +16,7 @@ public class UserResponse {
   // mapstruct는 반드시 필드명이 서로 일치해야되며 안되면 @Mapping 작업필요
   Long id;
 
-  String username;
+  String name;
 
   String email;
 
@@ -31,7 +31,7 @@ public class UserResponse {
   public UserResponse toResponse(User user) {
     return UserResponse.builder()
             .id(user.getId())
-            .username(user.getUsername())
+            .name(user.getName())
             .email(user.getEmail())
             .createdAt(user.getCreatedAt())
             .build();
