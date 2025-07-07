@@ -38,7 +38,7 @@ public class AuthController {
 
     log.info("session id : {}", session.getId());
 
-    return ApiResponse.success(authService.login(request));
+    return ApiResponse.success(loginResponse);
   }
 
   //QueryString을 여러개 보낼때 파라미터로 DTO를 전달하는데 그럴경우 DTO에 @AllArgsConstructor 필수(없으면 생성자 없어서 Json 안되어 오류)
@@ -61,6 +61,12 @@ public class AuthController {
       throw new ServiceException(ServiceExceptionCode.NOT_FOUND_DATA);
     }
 
-    return ApiResponse.success(authService.getLoginResponse(userId, name, email));
+    return ApiResponse.success(authService.getLoginResponse(userId, email));
+  }
+
+  @GetMapping("/logout")
+  public ApiResponse<Void> logout(HttpSession httpSession) {
+    httpSession.invalidate(); //요청받은 세션을 무효화처리
+    return ApiResponse.success();
   }
 }

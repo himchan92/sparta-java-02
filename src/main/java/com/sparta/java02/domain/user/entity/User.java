@@ -38,7 +38,7 @@ public class User {
   String password;
 
   @CreationTimestamp //엔티티 생성시 자동 시간부여
-  @Column(name = "create_at", nullable = false, updatable = false) //생성시점은 필수기록이니 nullable = false 부여
+  @Column(name = "created_at", nullable = false, updatable = false) //생성시점은 필수기록이니 nullable = false 부여
   LocalDateTime createdAt;
 
   @UpdateTimestamp //엔티티 수정 시 자동 시간부여
