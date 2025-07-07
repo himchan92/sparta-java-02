@@ -25,13 +25,15 @@ public class AuthService {
 
     return LoginResponse.builder()
         .userId(user.getId())
-        .email(request.getEmail())
+        .name(user.getName())
+        .email(user.getEmail())
         .build();
   }
 
-  public LoginResponse getLoginResponse(Long userId, String email) {
+  public LoginResponse getLoginResponse(Long userId, String name, String email) {
     return LoginResponse.builder()
         .userId(userId)
+        .name(name)
         .email(email)
         .build();
   }

@@ -75,11 +75,11 @@ public class UserService {
   @Transactional
   public void create(UserCreateRequest request) {
     //필드가 적으면 모를까 여러개일경우 일일이 매핑하면 시간오래걸려 mapstructs 활용하면 좋음
-//    userRepository.save(User.builder()
-//        .name(request.getName())
-//        .email(request.getEmail())
-//        .passwordHash(request.getPassword())
-//        .build());
+    userRepository.save(User.builder()
+        .name(request.getName())
+        .email(request.getEmail())
+        .password(request.getPassword())
+        .build());
 
     //위와 같이 일일이 매칭할필요없이 아래 mapstruct 활요하여 간략히 하고 비즈니스에 집중할수있음
     //userRepository.save(userMapper.toEntity(request));

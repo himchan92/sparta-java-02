@@ -61,7 +61,7 @@ public class AuthController {
       throw new ServiceException(ServiceExceptionCode.NOT_FOUND_DATA);
     }
 
-    return ApiResponse.success(authService.getLoginResponse(userId, email));
+    return ApiResponse.success(authService.getLoginResponse(userId, name, email));
   }
 
   @GetMapping("/logout")
