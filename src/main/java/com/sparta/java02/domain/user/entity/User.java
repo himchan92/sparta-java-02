@@ -29,7 +29,7 @@ public class User {
   Long id;
 
   @Column(nullable = false, length = 50) //name 속성은 필드명 그대로 컬럼할경우 생략
-  String username;
+  String name;
 
   @Column(nullable = false, unique = true)
   String email;
@@ -49,13 +49,13 @@ public class User {
   private List<Purchase> purchases = new ArrayList<>();
 
   @Builder //전체 노출시 클래스에 붙여도 상관없으나 제한된 필드만 노출시키고싶은경우 별도 생성자 생성하여 명시
-  public User(String username, String email, String password) {
-    this.username = username;
+  public User(String name, String email, String password) {
+    this.name = name;
     this.email = email;
     this.password = password;
   }
 
-  public void changeName(String username) {
-    this.username = username;
+  public void changeName(String name) {
+    this.name = name;
   }
 }
