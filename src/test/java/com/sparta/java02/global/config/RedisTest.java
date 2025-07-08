@@ -13,7 +13,7 @@ class RedisTest {
   //테스트코드에서는 Slf4j가 안되어 직접 Logger 가져와 로그 찍기
   private static final Logger log = LoggerFactory.getLogger(RedisTest.class);
 
-  @Autowired
+  @Autowired //스프링컨테이너한테 대신 객체생성해달라고 요청(DI)
   private Jedis jedis;
 
   @Test
