@@ -30,6 +30,8 @@ public class QPurchase extends EntityPathBase<Purchase> {
 
     public final NumberPath<java.math.BigDecimal> totalPrice = createNumber("totalPrice", java.math.BigDecimal.class);
 
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = createDateTime("updatedAt", java.time.LocalDateTime.class);
+
     public final com.sparta.java02.domain.user.entity.QUser user;
 
     public QPurchase(String variable) {

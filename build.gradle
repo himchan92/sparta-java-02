@@ -40,7 +40,11 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-mysql'
 
+    // mysql
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Jedis 클라이언트 (Redis와 통신하기 위한 라이브러리)
+    implementation 'redis.clients:jedis:4.3.1'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     compileOnly 'org.projectlombok:lombok'

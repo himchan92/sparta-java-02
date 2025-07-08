@@ -10,6 +10,13 @@ spring:
       connection-timeout: 30000 # 커넥션 얻기위해 대기하는 최대 시간(ms)
       max-lifetime: 180000 # 커넥션 최대 수명(ms)
 
+  # jedis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: # 실무에서는 값 정해주면됨
+
   # JPA 및 Hibernate 설정
   jpa:
     hibernate:
