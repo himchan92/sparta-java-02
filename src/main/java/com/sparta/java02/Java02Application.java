@@ -2,8 +2,10 @@ package com.sparta.java02;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication
+@EnableRedisHttpSession // Redis를 세션 저장소로 사용하도록 활성화
 public class Java02Application {
 
   public static void main(String[] args) {
