@@ -26,7 +26,7 @@ public class ProductService {
 
     return ProductResponse.builder()
             .id(product.getId())
-            .categoryId(product.getCategoryId())
+            .categoryId(product.getId())
             .name(product.getName())
             .description(product.getDescription())
             .price(product.getPrice())

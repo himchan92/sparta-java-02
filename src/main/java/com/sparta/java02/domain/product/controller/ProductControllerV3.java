@@ -1,6 +1,8 @@
 package com.sparta.java02.domain.product.controller;
 
 import com.sparta.java02.common.response.ApiResponse;
+import com.sparta.java02.domain.category.dto.CategoryProductDTO;
+import com.sparta.java02.domain.category.repository.CategoryProductQueryRepository;
 import com.sparta.java02.domain.product.dto.ProductRequest;
 import com.sparta.java02.domain.product.dto.ProductResponse;
 import com.sparta.java02.domain.product.service.ProductService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductControllerV3 {
 
   private final ProductService productService;
+  private final CategoryProductQueryRepository categoryProductQueryRepository;
 
   //전체 상품 조회
   @GetMapping
@@ -48,4 +51,8 @@ public class ProductControllerV3 {
     return ApiResponse.success();
   }
 
+  @GetMapping("/category/{categoryName}")
+  public ApiResponse<List<CategoryProductDTO>> searchCategoryProducts(@PathVariable String categoryName) {
+    return ApiResponse.success(categoryProductQueryRepository.findCategoryProducts(categoryName));
+  }
 }
