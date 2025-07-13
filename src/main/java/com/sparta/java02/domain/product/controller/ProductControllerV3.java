@@ -5,7 +5,11 @@ import com.sparta.java02.domain.category.dto.CategoryProductDTO;
 import com.sparta.java02.domain.category.repository.CategoryProductQueryRepository;
 import com.sparta.java02.domain.product.dto.ProductRequest;
 import com.sparta.java02.domain.product.dto.ProductResponse;
+import com.sparta.java02.domain.product.entity.Product;
+import com.sparta.java02.domain.product.repository.ProductSearchRepository;
 import com.sparta.java02.domain.product.service.ProductService;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.validation.Valid;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductControllerV3 {
 
   private final ProductService productService;
+  private final ProductSearchRepository productSearchRepository;
   private final CategoryProductQueryRepository categoryProductQueryRepository;
 
   //전체 상품 조회
@@ -54,5 +59,10 @@ public class ProductControllerV3 {
   @GetMapping("/category/{categoryName}")
   public ApiResponse<List<CategoryProductDTO>> searchCategoryProducts(@PathVariable String categoryName) {
     return ApiResponse.success(categoryProductQueryRepository.findCategoryProducts(categoryName));
+  }
+
+  @GetMapping("/search")
+  public ApiResponse<List<Product>> search(@RequestParam(required = false) String name, BigDecimal minPrice, BigDecimal maxPrice) {
+    return ApiResponse.success(productSearchRepository.searchProducts(name, minPrice, maxPrice));
   }
 }
