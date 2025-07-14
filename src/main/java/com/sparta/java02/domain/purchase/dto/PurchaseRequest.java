@@ -15,5 +15,5 @@ public class PurchaseRequest {
     Long userId;
 
     @NotNull
-    List<PurchaseProductRequest> products;
+    List<PurchaseProductRequest> items;
 }

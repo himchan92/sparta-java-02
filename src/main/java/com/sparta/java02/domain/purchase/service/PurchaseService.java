@@ -27,7 +27,7 @@ public class PurchaseService {
     User user = userRepository.findById(request.getUserId())
             .orElseThrow(() -> new ServiceException(ServiceExceptionCode.NOT_FOUND_USER));
 
-    return purchaseProcessService.process(user, request.getProducts());
+    return purchaseProcessService.process(user, request.getItems());
   }
 
   @Transactional
