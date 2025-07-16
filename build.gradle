@@ -61,6 +61,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
     //반드시 아래것들은 위 lombok 보다 아래에 위치해야한다
     // mapstruct 설정
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'

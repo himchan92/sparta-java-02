@@ -10,6 +10,8 @@ import com.sparta.java02.domain.user.entity.User;
 import com.sparta.java02.domain.user.mapper.UserMapper;
 import com.sparta.java02.domain.user.repository.UserRepository;
 import jakarta.persistence.EntityManager;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -141,7 +143,7 @@ public class UserService {
 
   //대량 insert 배치 처리 예시
   @Transactional
-  public void saveAllUsers(List<User> users) {
+  public void saveAllUsersEntity(List<User> users) {
 //    int batchSize = 1000;
 //
 //    for(int i = 0; i < batchSize; i++) {
@@ -166,5 +168,21 @@ public class UserService {
     // DB, Entity의 ID 컬럼속성이 반드시 AUTO INCREMENT아닌 SEQUENCE로 설정되야하는데 MYSQL은 지원안한다..(ORACLE, POSTGRE SQL은 가능)
     // 결론: SEQUENCE 지원되는 오라클인경우 위로직 대신 YML 설정, 시퀀스 속성만 처리해주면 saveAll만해도 된다.
     userRepository.saveAll(users);
+  }
+
+  //MYSQL AUTO INCREMENT 일경우
+  @Transactional
+  public void saveAllUser(List<User> users) {
+    // jdbcTemplate는 SQL을 문자열로 인식하므로 문자열 SQL 작성
+    String sql = "INSERT INTO user (name, email, password, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
+
+    jdbcTemplate.batchUpdate(sql, users, 1000, (ps, user) -> {
+      LocalDateTime now = LocalDateTime.now();
+      ps.setString(1, user.getName());
+      ps.setString(2, user.getEmail());
+      ps.setString(3, user.getPassword());
+      ps.setTimestamp(4, Timestamp.valueOf(now));
+      ps.setTimestamp(5, Timestamp.valueOf(now));
+    });
   }
 }

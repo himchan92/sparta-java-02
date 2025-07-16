@@ -34,6 +34,7 @@ spring:
         show_sql: true
         jdbc:
           batch_size: 1000
+        order_updates: true #업데이트문 최적화 권장
 
   # 로깅 레벨 설정
   logging:
