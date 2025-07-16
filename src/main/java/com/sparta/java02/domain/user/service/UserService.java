@@ -13,6 +13,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,15 +25,17 @@ public class UserService {
   // find~ : 값이 있든 없든 조회
   // get~ : 값이 있는것만 조회
 
-  //동작, 분기처리 등 대부분로직은 서비스에서 수행하고 컨트롤러에서 분기처리 등 넣지말자
-  private final UserRepository userRepository;
-
   private final EntityManager entityManager;
+  private final JdbcTemplate jdbcTemplate;
 
   //암호화 객체(시큐리티 셋팅 후 가능)
   //private final PasswordEncoder passwordEncoder;
 
-  private final UserMapper userMapper; //mapstruct 사용
+  //mapstruct 사용
+  private final UserMapper userMapper;
+
+  //동작, 분기처리 등 대부분로직은 서비스에서 수행하고 컨트롤러에서 분기처리 등 넣지말자
+  private final UserRepository userRepository;
 
   @Transactional(readOnly = true)
   public List<UserSearchResponse> searchUser() {
