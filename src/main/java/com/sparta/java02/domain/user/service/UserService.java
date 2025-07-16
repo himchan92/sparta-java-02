@@ -9,6 +9,7 @@ import com.sparta.java02.domain.user.dto.UserUpdateRequest;
 import com.sparta.java02.domain.user.entity.User;
 import com.sparta.java02.domain.user.mapper.UserMapper;
 import com.sparta.java02.domain.user.repository.UserRepository;
+import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class UserService {
 
   //동작, 분기처리 등 대부분로직은 서비스에서 수행하고 컨트롤러에서 분기처리 등 넣지말자
   private final UserRepository userRepository;
+
+  private final EntityManager entityManager;
 
   //암호화 객체(시큐리티 셋팅 후 가능)
   //private final PasswordEncoder passwordEncoder;
@@ -131,5 +134,34 @@ public class UserService {
   private User getUser(Long userId) {
     return userRepository.findById(userId)
         .orElseThrow(() -> new ServiceException(ServiceExceptionCode.NOT_FOUND_USER));
+  }
+
+  //대량 insert 배치 처리 예시
+  @Transactional
+  public void saveAllUsers(List<User> users) {
+//    int batchSize = 1000;
+//
+//    for(int i = 0; i < batchSize; i++) {
+//      User user = users.get(i);
+//      entityManager.persist(user); //전달받은 user 데이터 영속성등록
+//
+//      //1000건마다 DB 반영 후 메모리 비우기
+//      if((i + 1) % batchSize == 0) {
+//        //DB에 쿼리전송
+//        entityManager.flush();
+//
+//        //영속성 초기화
+//        entityManager.clear();
+//      }
+//    }
+//
+//    //루프 종료후 나머지 처리
+//    entityManager.flush();
+//    entityManager.clear();
+
+    // yml > jdbc > batchsiz에 1000 설정해주면 위 소스 다 스킵하고 아래 소스만으로 동일결과 수행된다.
+    // DB, Entity의 ID 컬럼속성이 반드시 AUTO INCREMENT아닌 SEQUENCE로 설정되야하는데 MYSQL은 지원안한다..(ORACLE, POSTGRE SQL은 가능)
+    // 결론: SEQUENCE 지원되는 오라클인경우 위로직 대신 YML 설정, 시퀀스 속성만 처리해주면 saveAll만해도 된다.
+    userRepository.saveAll(users);
   }
 }
