@@ -32,10 +32,9 @@ class UserServiceTest {
     userService.saveAllUser(users);
 
     //then
-    List<User> savedUsers = entityManager.createQuery("SELECT u FROM User u WHERE u.id = 2000",
-        User.class).getResultList();
+    List<User> savedUsers = entityManager.createQuery("SELECT u FROM User u ORDER BY u.id", User.class).getResultList();
 
-    assertThat(savedUsers).hasSize(2001);
+    assertThat(savedUsers).hasSize(2000);
   }
 
   private List<User> getUsers(int count) {

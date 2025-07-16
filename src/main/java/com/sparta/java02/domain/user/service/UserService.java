@@ -10,6 +10,7 @@ import com.sparta.java02.domain.user.entity.User;
 import com.sparta.java02.domain.user.mapper.UserMapper;
 import com.sparta.java02.domain.user.repository.UserRepository;
 import jakarta.persistence.EntityManager;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -174,6 +175,20 @@ public class UserService {
   @Transactional
   public void saveAllUser(List<User> users) {
     // jdbcTemplate는 SQL을 문자열로 인식하므로 문자열 SQL 작성
+    String sql = "INSERT INTO user (name, email, password, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
+
+    jdbcTemplate.batchUpdate(sql, users, 1000, (ps, user) -> {
+      LocalDateTime now = LocalDateTime.now();
+      ps.setString(1, user.getName());
+      ps.setString(2, user.getEmail());
+      ps.setString(3, user.getPassword());
+      ps.setTimestamp(4, Timestamp.valueOf(now));
+      ps.setTimestamp(5, Timestamp.valueOf(now));
+    });
+  }
+
+  @Transactional
+  public void bulkInsertUsers(List<User> users) {
     String sql = "INSERT INTO user (name, email, password, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
 
     jdbcTemplate.batchUpdate(sql, users, 1000, (ps, user) -> {

@@ -18,7 +18,11 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
   Long user(User user);
 
-  @Modifying(clearAutomatically = true) //영속성 자동 클리어, UPDATE문 or DELETE문 JPQL 임을 명시
+  @Modifying(clearAutomatically = true) //영속성 자동 클리어, DML JPQL 임을 명시
   @Query("UPDATE Purchase p SET p.status = 'COMPLETE' where p.createdAt < :date AND p.status = 'PENDING'")
   int bulkUpdateStatus(@Param("date") LocalDateTime date);
+
+  @Modifying(clearAutomatically = true)
+  @Query("DELETE FROM Purchase p WHERE p.status = 'CANCELED'")
+  int deleteCanceledPurchases();
 }
