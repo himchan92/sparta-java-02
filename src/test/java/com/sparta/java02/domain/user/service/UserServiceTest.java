@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@Transactional
+@Transactional //디폴트 자동롤백이므로 수행후 삭제처리되어 INSERT문 직접 확인하려면 별도 옵션 필요함
 @SpringBootTest
 class UserServiceTest {
 
