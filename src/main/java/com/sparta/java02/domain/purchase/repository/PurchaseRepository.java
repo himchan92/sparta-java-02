@@ -25,4 +25,5 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
   @Modifying(clearAutomatically = true)
   @Query("DELETE FROM Purchase p WHERE p.status = 'CANCELED'")
   int deleteCanceledPurchases();
+
 }
