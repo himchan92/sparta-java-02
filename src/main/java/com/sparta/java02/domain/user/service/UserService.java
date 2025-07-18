@@ -37,6 +37,9 @@ public class UserService {
   //mapstruct 사용
   private final UserMapper userMapper;
 
+  //mybatis 사용
+  private final com.sparta.java02.domain.user.repository.UserMapper mapper;
+
   //동작, 분기처리 등 대부분로직은 서비스에서 수행하고 컨트롤러에서 분기처리 등 넣지말자
   private final UserRepository userRepository;
 
@@ -199,5 +202,14 @@ public class UserService {
       ps.setTimestamp(4, Timestamp.valueOf(now));
       ps.setTimestamp(5, Timestamp.valueOf(now));
     });
+  }
+
+  //마이바티스 연동 호출
+  public User getUserById(int id) {
+    return mapper.getUserById(id);
+  }
+
+  public void createUser(User user) {
+    mapper.insertUser(user);
   }
 }
