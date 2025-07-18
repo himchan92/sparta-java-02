@@ -54,7 +54,12 @@ spring:
 server:
   port: 8080
 
+
 # (선택)Swagger UI 설정 (실제 라이브에서는 노출위험 방지하고자 false 권장)
 springdoc:
   swagger-ui:
     enabled: true
+
+# 마이바티스 경로 설정
+mybatis:
+  mapper-locations: classpath:mappers/*.xml

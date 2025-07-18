@@ -54,7 +54,7 @@ public class QPurchaseProduct extends EntityPathBase<PurchaseProduct> {
 
     public QPurchaseProduct(Class<? extends PurchaseProduct> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.product = inits.isInitialized("product") ? new com.sparta.java02.domain.product.entity.QProduct(forProperty("product")) : null;
+        this.product = inits.isInitialized("product") ? new com.sparta.java02.domain.product.entity.QProduct(forProperty("product"), inits.get("product")) : null;
         this.purchase = inits.isInitialized("purchase") ? new QPurchase(forProperty("purchase"), inits.get("purchase")) : null;
     }
 

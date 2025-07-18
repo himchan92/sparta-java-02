@@ -77,6 +77,9 @@ dependencies {
     //테스트코드 MockMVC 지원
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    //마이바티스
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
 }
 
 tasks.named('test') {
