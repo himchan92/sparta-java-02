@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sparta.bootcamp.sparta_java_week_5.mapper.UserMapperRepository">
+<mapper namespace="com.sparta.java02.domain.user.repository.UserMapperRepository">
   <insert id="insertUser" parameterType="com.sparta.java02.domain.user.dto.UserDTO">
     INSERT INTO user VALUES
     <foreach collection="users" item="user" separator=",">
