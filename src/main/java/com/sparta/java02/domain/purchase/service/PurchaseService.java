@@ -5,6 +5,7 @@ import com.sparta.java02.common.exception.ServiceExceptionCode;
 import com.sparta.java02.domain.purchase.dto.PurchaseCancelRequest;
 import com.sparta.java02.domain.purchase.dto.PurchaseCancelResponse;
 import com.sparta.java02.domain.purchase.dto.PurchaseRequest;
+import com.sparta.java02.domain.purchase.dto.PurchaseSearchCondition;
 import com.sparta.java02.domain.purchase.entity.Purchase;
 import com.sparta.java02.domain.purchase.repository.PurchaseRepository;
 import com.sparta.java02.domain.user.entity.User;
@@ -34,4 +35,7 @@ public class PurchaseService {
   public PurchaseCancelResponse cancelPurchase(PurchaseCancelRequest request) {
     return cancelService.cancelPurchase(request.getPurchaseId(), request.getUserId());
   }
+
+  //마이바티스 연동로직
+  PurchaseSearchCondition condition = new PurchaseSearchCondition();
 }
