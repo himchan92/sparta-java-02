@@ -8,6 +8,7 @@ import com.sparta.java02.domain.user.dto.UserSearchResponse;
 import com.sparta.java02.domain.user.dto.UserUpdateRequest;
 import com.sparta.java02.domain.user.entity.User;
 import com.sparta.java02.domain.user.mapper.UserMapper;
+import com.sparta.java02.domain.user.repository.UserMapperRepository;
 import com.sparta.java02.domain.user.repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import java.sql.Time;
@@ -38,7 +39,7 @@ public class UserService {
   private final UserMapper userMapper;
 
   //mybatis 사용
-  private final com.sparta.java02.domain.user.repository.UserMapper mapper;
+  private final UserMapperRepository mapper;
 
   //동작, 분기처리 등 대부분로직은 서비스에서 수행하고 컨트롤러에서 분기처리 등 넣지말자
   private final UserRepository userRepository;
