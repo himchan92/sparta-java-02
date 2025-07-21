@@ -43,21 +43,21 @@ public class CategoryJdbcRepository {
     }
   }
 
-  public Category findById(Connection connection, Category category) throws SQLException {
+  public Category findById(Connection connection, Long categoryId) throws SQLException {
     String query = "SELECT * FROM category WHERE id = ?";
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
     try {
       preparedStatement = connection.prepareStatement(query);
-      preparedStatement.setLong(1, category.getId());
+      preparedStatement.setLong(1, categoryId);
       resultSet = preparedStatement.executeQuery();
       if(resultSet.next()) {
         return Category.builder()
             .name(resultSet.getString("name"))
             .build();
       } else {
-        throw new NoSuchElementException("Category not found");
+        throw new NoSuchElementException("CategoryId : " + categoryId);
       }
     } catch (SQLException error) {
       log.error(error.getMessage(), error);
