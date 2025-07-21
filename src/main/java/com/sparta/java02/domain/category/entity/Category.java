@@ -1,5 +1,7 @@
 package com.sparta.java02.domain.category.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -7,28 +9,54 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
+@Table(name = "category")
 @Entity
+@Getter
+@DynamicInsert
+@DynamicUpdate
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Category {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id;
-  
-  String name;
-  
-  //부모: 자기참조통해 계층관계 형성
+  private Long id;
+
+  @Column(nullable = false)
+  private String name;
+
+  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "parent_id")
-  Category parent;
+  private Category parent;
 
-  //자식카테고리
-  @OneToMany(mappedBy = "parent")
-  List<Category> children = new ArrayList<>();
+  @Column(nullable = false, updatable = false)
+  @CreationTimestamp
+  LocalDateTime createdAt;
+
+  @Column(nullable = false)
+  @UpdateTimestamp
+  LocalDateTime updatedAt;
+
+  @Builder
+  public Category(
+      String name,
+      Category parent
+  ) {
+    this.name = name;
+    this.parent = parent;
+  }
+
 }
