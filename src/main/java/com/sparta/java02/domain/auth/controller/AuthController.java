@@ -58,7 +58,7 @@ public class AuthController {
     String email = (String)session.getAttribute("email");
 
     if(ObjectUtils.isEmpty(userId) && ObjectUtils.isEmpty(name) && ObjectUtils.isEmpty(email)) {
-      throw new ServiceException(ServiceExceptionCode.NOT_FOUND_DATA);
+      throw new ServiceException(ServiceExceptionCode.NOT_FOUND_USER);
     }
 
     return ApiResponse.success(authService.getLoginResponse(userId, name, email));
