@@ -18,6 +18,13 @@ public class RedisDataTest {
   private Jedis jedis;
 
   @Test
+  public void jedisTest() {
+    jedis.set("jedisKey", "Hello World!");
+    String jedisValue = jedis.get("jedisKey");
+    log.info("jedisValue: {}", jedisValue);
+  }
+
+  @Test
   void redisStringExample() {
     // api : /api/users/34 API 호출
     jedis.set("user:55:session", "{\"id\" : 34, \"name\" : \"홍길동\"}");
