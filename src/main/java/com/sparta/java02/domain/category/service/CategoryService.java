@@ -65,7 +65,7 @@ public class CategoryService {
         return rootCategories;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // DB 트랜젝션 읽기전용 설정
     public List<CategoryResponse> findCategoryStructCacheAside() throws JsonProcessingException {
         //캐시에서 데이터조회
         String cachedCategories = jedis.get(CACHE_KEY_CATEGORY_STRUT);
@@ -73,6 +73,7 @@ public class CategoryService {
         //캐시 해당
         if(!ObjectUtils.isEmpty(cachedCategories)) {
             log.info("Cache Hit: categoryStruct for key " + CACHE_KEY_CATEGORY_STRUT);
+            //캐시 존재시 JSON -> JAVA 역직렬화 반환
             return objectMapper.readValue(cachedCategories, new TypeReference<>() {});
         }
 
@@ -82,6 +83,7 @@ public class CategoryService {
 
         //DB 조회 데이터를 캐시에 저장
         if(!ObjectUtils.isEmpty(rootCategories)) {
+            //JAVA -> JSON 직렬화 후 캐시저장(setex)
             String jsonString = objectMapper.writeValueAsString(rootCategories);
             jedis.setex(CACHE_KEY_CATEGORY_STRUT, CACHE_EXPIRE_SECONDS, jsonString);
         }
