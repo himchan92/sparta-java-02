@@ -3,4 +3,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sparta.java02.domain.purchase.repository.PurchaseMapper">
 
+    <select id="findPurchaseWithPaging" parameterType="com.example.PurchaseSearchCondition" resultType="Purchase">
+        SELECT
+        purchase_id, customer_id, total_amount, status, created_at
+        FROM
+        purchases
+        <where>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="customerId != null">
+                AND customer_id = #{customerId}
+            </if>
+        </where>
+        ORDER BY
+        created_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
 </mapper>

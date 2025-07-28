@@ -35,7 +35,4 @@ public class PurchaseService {
   public PurchaseCancelResponse cancelPurchase(PurchaseCancelRequest request) {
     return cancelService.cancelPurchase(request.getPurchaseId(), request.getUserId());
   }
-
-  //마이바티스 연동로직
-  PurchaseSearchCondition condition = new PurchaseSearchCondition();
 }
