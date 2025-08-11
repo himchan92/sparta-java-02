@@ -26,7 +26,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     //특정날짜이후가입한 유저들 이름순으로 정렬조회
     List<User> findByCreatedAtAfterOrderByUsernameAsc(LocalDateTime dateTime);
-
-    //name 같은 유저의 수 카운트
-    long countByName(String name);
 }

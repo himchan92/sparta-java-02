@@ -26,6 +26,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 생성을 DB auto increment 명시
     Long id;
 
+    //유저(1) : 주문목록(N) 매핑
+
     @Column(name = "username", nullable = false, length = 50)
     String username;
 
