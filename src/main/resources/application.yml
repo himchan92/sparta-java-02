@@ -5,6 +5,10 @@ spring:
     username: root
     password: wjdthddl
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10 # 최대 커넥선 개수
+      connection-timeout: 30000 # 커넥션 얻기위해 대기하는 최대 시간
+      max-lifetime: 1800000 # 커넥션 최대수명
 
   # JPA 및 Hibernate 설정
   jpa:
@@ -19,6 +23,8 @@ spring:
         # MySQL 8 버전에 맞는 Dialect(방언) 설정
         dialect: org.hibernate.dialect.MySQL8Dialect
 
+
+  # flyway 설정
   spring:
     flyway:
       enabled: true
