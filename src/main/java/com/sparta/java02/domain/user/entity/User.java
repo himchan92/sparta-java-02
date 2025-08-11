@@ -1,5 +1,6 @@
 package com.sparta.java02.domain.user.entity;
 
+import com.sparta.java02.domain.purchase.entity.Purchase;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,6 +13,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity //JPA관리임을 명시
 @Getter
@@ -27,6 +30,8 @@ public class User {
     Long id;
 
     //유저(1) : 주문목록(N) 매핑
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    List<Purchase> purchases = new ArrayList<>();
 
     @Column(name = "username", nullable = false, length = 50)
     String username;
