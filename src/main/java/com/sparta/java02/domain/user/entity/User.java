@@ -33,8 +33,8 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     List<Purchase> purchases = new ArrayList<>();
 
-    @Column(name = "username", nullable = false, length = 50)
-    String username;
+    @Column(name = "name", nullable = false, length = 50)
+    String name;
 
     @Column(nullable = false, unique = true)
     String email;
@@ -51,8 +51,8 @@ public class User {
     LocalDateTime updatedAt;
 
     @Builder //외부노출방지를 위해 필요한 필드만 보여줄경우 생성자에 Builder 명시
-    public User(String username, String email, String passwordHash) {
-        this.username = username;
+    public User(String name, String email, String passwordHash) {
+        this.name = name;
         this.email = email;
         this.passwordHash = passwordHash;
     }

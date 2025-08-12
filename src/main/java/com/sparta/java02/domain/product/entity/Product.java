@@ -1,7 +1,5 @@
-package com.sparta.java02.domain.purchase.entity;
+package com.sparta.java02.domain.product.entity;
 
-import com.sparta.java02.domain.common.enums.PurchaseStatus;
-import com.sparta.java02.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,23 +20,24 @@ import java.time.LocalDateTime;
 @DynamicUpdate //변경대상만 update
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "purchase")
-public class Purchase {
+@Table(name = "product")
+public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id") //DB Table user_id 컬럼과 조인
-    User user;
+    @Column
+    String name;
 
-    //가격관련 컬럼은 BigDecimal 타입 권장
-    @Column(name = "total_price", nullable = false)
-    BigDecimal totalPrice;
+    @Column
+    String description;
 
-    @Column(nullable = false, length = 20)
-    @Enumerated(EnumType.STRING) //열거형 필수지정
-    PurchaseStatus status;
+    @Column
+    BigDecimal price;
+
+    @Column
+    Integer stock;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -49,9 +48,10 @@ public class Purchase {
     LocalDateTime updatedAt;
 
     @Builder
-    public Purchase(User user, BigDecimal totalPrice, PurchaseStatus status) {
-        this.user = user;
-        this.totalPrice = totalPrice;
-        this.status = status;
+    public Product(String name, String description, BigDecimal price, Integer stock) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
     }
 }

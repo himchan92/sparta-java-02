@@ -21,9 +21,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     //DB 고유함수나 문법 필요시 nativeQuery 사용
     //nativeQuery에서는 파라미터매핑을 1 처럼 작성하여 매핑
-    @Query(value = "SELECT * FROM user WHERE username = ?1", nativeQuery = true)
-    User findByUsernameNative(String username);
+    @Query(value = "SELECT * FROM user WHERE name = ?1", nativeQuery = true)
+    User findByNameNative(String name);
 
     //특정날짜이후가입한 유저들 이름순으로 정렬조회
-    List<User> findByCreatedAtAfterOrderByUsernameAsc(LocalDateTime dateTime);
+    List<User> findByCreatedAtAfterOrderByNameAsc(LocalDateTime dateTime);
 }
