@@ -1,5 +1,6 @@
 package com.sparta.java02.domain.product.entity;
 
+import com.sparta.java02.domain.category.entity.Category;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -27,6 +28,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    //TODO: 실습을 위한 임시 컬럼입니다. (실제론 이렇게 작업하면 안됩니다.)
+    @Column(nullable = false)
+    Long categoryId;
+
     @Column
     String name;
 
@@ -48,7 +53,8 @@ public class Product {
     LocalDateTime updatedAt;
 
     @Builder
-    public Product(String name, String description, BigDecimal price, Integer stock) {
+    public Product(Long categoryId, String name, String description, BigDecimal price, Integer stock) {
+        this.categoryId = categoryId;
         this.name = name;
         this.description = description;
         this.price = price;
