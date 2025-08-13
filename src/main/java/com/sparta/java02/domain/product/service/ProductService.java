@@ -26,12 +26,9 @@ public class ProductService {
         .orElseThrow(() -> new ServiceException(ServiceExceptionCode.NOT_FOUND_PRODUCT));
 
     return ProductResponse.builder()
-        .id(product.getId())
-        .categoryId(product.getCategoryId())
         .name(product.getName())
         .description(product.getDescription())
         .price(product.getPrice())
-        .stock(product.getStock())
         .createdAt(product.getCreatedAt())
         .build();
   }
