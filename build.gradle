@@ -56,6 +56,10 @@ dependencies {
     //validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    //mapstruct : DTO~ENTITY간 자동매핑지원, 어노테이션 프로세서를 지정해야 코드가 자동 생성됨
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
     //Swagger UI
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 }
