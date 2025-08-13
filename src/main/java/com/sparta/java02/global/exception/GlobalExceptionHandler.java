@@ -1,6 +1,6 @@
-package com.sparta.java02.global.config;
+package com.sparta.java02.global.exception;
 
-import com.sparta.java02.common.ApiResponse;
+import com.sparta.java02.common.response.ApiResponse;
 import com.sparta.java02.common.exception.ServiceException;
 import io.swagger.v3.oas.annotations.Hidden;
 import java.util.concurrent.atomic.AtomicReference;

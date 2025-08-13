@@ -1,6 +1,6 @@
 package com.sparta.java02.domain.purchase.entity;
 
-import com.sparta.java02.domain.common.enums.PurchaseStatus;
+import com.sparta.java02.common.enums.PurchaseStatus;
 import com.sparta.java02.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

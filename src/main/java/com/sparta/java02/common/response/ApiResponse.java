@@ -1,4 +1,4 @@
-package com.sparta.java02.common;
+package com.sparta.java02.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
