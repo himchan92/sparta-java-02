@@ -1,6 +1,6 @@
-package com.sparta.java02.domain.category.entity;
+package com.sparta.java02.domain.purchase.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sparta.java02.domain.product.entity.Product;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,11 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,25 +23,31 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "category")
-@DynamicUpdate
-@DynamicInsert
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) //protected로 외부에서 사용 못 하게 막고, JPA 내부 동작만 허용
+@DynamicInsert
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Category {
+@Table(name = "purchase_product")
+public class PurchaseProduct {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;
 
-  @Column(nullable = false)
-  String name;
-
-  //다대다는 실무비추로 일대다~다대일분리 권장
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "parent_id") //부모
-  Category parent; //부모카테고리
+  @JoinColumn(name = "purchase_id", nullable = false)
+  Purchase purchase;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_id", nullable = false)
+  Product product;
+
+  @Column(nullable = false)
+  Integer quantity;
+
+  @Column(nullable = false)
+  BigDecimal price;
 
   @CreationTimestamp //JPA 자동시간설정
   @Column(name = "created_at", nullable = false, updatable = false)
@@ -54,8 +58,10 @@ public class Category {
   LocalDateTime updatedAt;
 
   @Builder
-  public Category(String name, Category parent) {
-    this.name = name;
-    this.parent = parent;
+  public PurchaseProduct(Purchase purchase, Product product, Integer quantity, BigDecimal price) {
+    this.purchase = purchase;
+    this.product = product;
+    this.quantity = quantity;
+    this.price = price;
   }
 }
