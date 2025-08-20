@@ -64,4 +64,8 @@ public class PurchaseProduct {
     this.quantity = quantity;
     this.price = price;
   }
+
+    public void setPurchase(Purchase purchase) {
+      this.purchase = purchase;
+    }
 }
