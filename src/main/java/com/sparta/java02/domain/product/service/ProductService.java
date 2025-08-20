@@ -1,7 +1,10 @@
 package com.sparta.java02.domain.product.service;
 
+import com.sparta.java02.common.enums.ServiceExceptionCode;
+import com.sparta.java02.common.exception.ServiceException;
 import com.sparta.java02.domain.product.dto.ProductRequest;
 import com.sparta.java02.domain.product.dto.ProductResponse;
+import com.sparta.java02.domain.product.entity.Product;
 import com.sparta.java02.domain.product.repository.ProductRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +26,18 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductResponse getById(Long id) {
-        return null;
+        //서비스단내에서 예외처리도 가능
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ServiceException(ServiceExceptionCode.NOT_FOUND_PRODUCT));
+
+        return ProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .stock(product.getStock())
+                .createdAt(product.getCreatedAt())
+                .build();
     }
 
     @Transactional

@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public enum ServiceExceptionCode {
+    NOT_FOUND_PRODUCT("상품을 찾을 수 없습니다.");
 
-    //final String message;
+    final String message;
 }
