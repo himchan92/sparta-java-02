@@ -4,6 +4,9 @@ import com.sparta.java02.domain.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
   //특정 날짜이후 가입유저들 이름순으로 정렬조회
   //메소드명 너무길면 가독성안좋아서 비추
   List<User> findByCreatedAtAfterOrderByNameAsc(LocalDateTime dateTime);
+
+  //이메일중복체크
+  Optional<Object> findByEmail(String email);
 }

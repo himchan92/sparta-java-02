@@ -10,4 +10,6 @@ public interface UserMapper {
     UserResponse toResponse(User user);
 
     User toEntity(UserCreateRequest request);
+
+    User toEntity(String encode);
 }
