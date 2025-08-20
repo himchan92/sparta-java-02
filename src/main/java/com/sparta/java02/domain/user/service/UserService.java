@@ -44,4 +44,12 @@ public class UserService {
 
         return UserResponse.fromEntity(savedUser);
     }
+
+    @Transactional
+    public void updateUser(Long id, String newName) {
+        User user = userRepository.findById(id).get();
+
+        user.changeName(newName);
+        //save없이 setter, Transactional 만으로 변경감지일어나 update 수행지원
+    }
 }

@@ -59,4 +59,9 @@ public class User {
         this.email = email;
         this.passwordHash = passwordHash;
     }
+
+    //변경테스트
+    public void changeName(String newName) {
+        this.name = newName;
+    }
 }

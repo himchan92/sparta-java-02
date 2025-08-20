@@ -67,4 +67,8 @@ public class Product {
     this.price = price;
     this.stock = stock;
   }
+
+    public void decreaseStock(int quantity) {
+    this.stock -= quantity;
+    }
 }

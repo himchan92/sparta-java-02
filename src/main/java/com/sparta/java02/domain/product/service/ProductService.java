@@ -55,4 +55,12 @@ public class ProductService {
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
+
+    @Transactional
+    public void decreaseStock(Long productId, int quantity) {
+        Product product = productRepository.findById(productId).get();
+
+        //변경감지일어나 update 수행
+        product.decreaseStock(quantity);
+    }
 }
