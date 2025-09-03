@@ -44,4 +44,4 @@ server:
 # Swagger UI : 운영에서는 URL 노출되어 보안유출 방지를 위해 false처리
 springdoc:
   swagger-ui:
-    enabled: false
+    enabled: true
