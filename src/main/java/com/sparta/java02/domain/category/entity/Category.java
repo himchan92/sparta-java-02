@@ -1,6 +1,5 @@
-package com.sparta.java02.domain.user.entity;
+package com.sparta.java02.domain.category.entity;
 
-import com.sparta.java02.domain.purchase.entity.Purchase;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,38 +21,30 @@ import java.util.List;
 @DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "user")
-public class User {
+@Table(name = "category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    List<Purchase> purchases = new ArrayList<>();
+    String name;
 
-    @Column(nullable = false, length = 50)
-    String username;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    Category parent; //부모
 
-    @Column(nullable = false, unique = true)
-    String email;
-
-    @Column(name = "password_hash", nullable = false)
-    String passwordHash;
-
+    @Column(nullable = false, updatable = false, name = "created_at")
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
     LocalDateTime createdAt;
 
+    @Column(nullable = false, name = "updated_at")
     @UpdateTimestamp
-    @Column(name = "updated_at")
     LocalDateTime updatedAt;
 
     @Builder
-    public User(String username, String email, String passwordHash) {
-        this.username = username;
-        this.email = email;
-        this.passwordHash = passwordHash;
+    public Category(String name, Category parent) {
+        this.name = name;
+        this.parent = parent;
     }
 }
