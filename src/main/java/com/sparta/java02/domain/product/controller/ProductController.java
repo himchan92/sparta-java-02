@@ -1,8 +1,13 @@
 package com.sparta.java02.domain.product.controller;
 
+import com.sparta.java02.domain.product.dto.ProductRequest;
+import com.sparta.java02.domain.product.dto.ProductResponse;
 import com.sparta.java02.domain.product.entity.Product;
 import com.sparta.java02.domain.product.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,27 +19,28 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> getAll() {
-        return productService.getAll();
+    public ResponseEntity<List<ProductResponse>> getAll() {
+        return ResponseEntity.ok(productService.getAll());
     }
 
     @GetMapping("/{id}")
-    public Product getById(@PathVariable Long id) {
-        return productService.getById(id);
+    public ResponseEntity<ProductResponse> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(productService.getById(id));
     }
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return productService.create(product);
+    public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(request));
     }
 
     @PutMapping("/{id}")
-    public Product update(@PathVariable Long id, @RequestBody Product product) {
-        return null;
+    public ResponseEntity<ProductResponse> update(@PathVariable Integer id, @Valid @RequestBody ProductRequest request) {
+        return ResponseEntity.ok(productService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         productService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

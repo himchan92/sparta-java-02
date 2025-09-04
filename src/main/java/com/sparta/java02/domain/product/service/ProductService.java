@@ -1,7 +1,10 @@
 package com.sparta.java02.domain.product.service;
 
+import com.sparta.java02.domain.product.dto.ProductRequest;
+import com.sparta.java02.domain.product.dto.ProductResponse;
 import com.sparta.java02.domain.product.entity.Product;
 import com.sparta.java02.domain.product.repository.ProductRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,19 +16,24 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository; //final 이기에 불변성 보장
 
-    @Transactional
-    public Product create(Product product) {
+    @Transactional(readOnly = true)
+    public List<ProductResponse> getAll() {
         return null;
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public ProductResponse getById(Integer id) {
+        return null;
     }
 
-    @Transactional(readOnly = true)
-    public Product getById(Long id) {
-        return productRepository.findById(id).get();
+    @Transactional
+    public ProductResponse create(@Valid ProductRequest request) {
+        return null;
+    }
+
+    @Transactional
+    public ProductResponse update(Integer id, @Valid ProductRequest request) {
+        return null;
     }
 
     @Transactional
