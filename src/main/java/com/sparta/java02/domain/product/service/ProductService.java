@@ -21,23 +21,23 @@ public class ProductService {
         return null;
     }
 
-    @Transactional(readOnly = true)
-    public ProductResponse getById(Integer id) {
-        return null;
-    }
-
     @Transactional
     public ProductResponse create(@Valid ProductRequest request) {
         return null;
     }
 
     @Transactional
-    public ProductResponse update(Integer id, @Valid ProductRequest request) {
+    public ProductResponse update(Long id, @Valid ProductRequest request) {
         return null;
     }
 
     @Transactional
     public void delete(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductResponse getById(Long id) {
+        return null;
     }
 }
