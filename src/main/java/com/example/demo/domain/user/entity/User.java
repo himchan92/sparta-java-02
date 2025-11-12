@@ -1,5 +1,6 @@
 package com.example.demo.domain.user.entity;
 
+import com.example.demo.domain.purchase.entity.Purchase;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,6 +13,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +27,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // User 엔티티에 매핑되었다고 명시, user_id 관리하는 N(Purchase)쪽이 연관관계 주인
+    @OneToMany(mappedBy = "user")
+    private List<Purchase> purchases = new ArrayList<>();
     
     @Column(nullable = false, length = 50)
     private String username;
