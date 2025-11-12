@@ -5,6 +5,10 @@ spring:
     username: root
     password: wjdthddl
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 30000
+      max-lifetime: 1800000
 
   # JPA 및 Hibernate 설정
   jpa:
