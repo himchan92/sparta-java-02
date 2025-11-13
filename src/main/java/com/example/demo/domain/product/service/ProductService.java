@@ -1,7 +1,12 @@
 package com.example.demo.domain.product.service;
 
+import com.example.demo.common.exception.ServiceException;
+import com.example.demo.common.exception.ServiceExceptionCode;
+import com.example.demo.domain.product.dto.ProductRequest;
+import com.example.demo.domain.product.dto.ProductResponse;
 import com.example.demo.domain.product.entity.Product;
 import com.example.demo.domain.product.repository.ProductRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,28 +19,38 @@ public class ProductService {
 
     private ProductRepository productRepository;
 
-    @Transactional
-    public Product create(Product product) {
+    @Transactional(readOnly = true)
+    public List<ProductResponse> getAll() {
         return null;
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getAll() {
-        return null;
+    public ProductResponse getById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ServiceException(ServiceExceptionCode.NOT_FOUND_PRODUCT));
+
+        return ProductResponse.builder()
+                .id(product.getId())
+                .categoryId(product.getCategoryId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .stock(product.getStock())
+                .createdAt(product.getCreatedAt())
+                .build();
     }
 
-    @Transactional(readOnly = true)
-    public Product getById(Long id) {
+    @Transactional
+    public ProductResponse create(@Valid ProductRequest request) {
         return null;
     }
 
     @Transactional
-    public Product update(Long id, Product productDetails) {
+    public ProductResponse update(Long id, @Valid ProductRequest request) {
         return null;
     }
 
     @Transactional
     public void delete(Long id) {
-        productRepository.deleteById(id);
     }
 }
