@@ -1,6 +1,6 @@
-package com.example.demo.domain.product.entity;
+package com.example.demo.domain.category.entity;
 
-import com.example.demo.domain.category.entity.Category;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,7 +12,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Table
@@ -22,30 +21,19 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Product {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    //실습위한 임시처리로 실무에서는 비추
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "category_id")
-    //Category category;
-    @Column(nullable = false)
-    Long categoryId;
-
     @Column(nullable = false)
     String name;
 
-    @Column(columnDefinition = "TEXT")
-    String description;
-
-    @Column(nullable = false)
-    BigDecimal price;
-
-    @Column(nullable = false)
-    Integer stock;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    Category parent;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -56,11 +44,8 @@ public class Product {
     LocalDateTime updatedAt;
 
     @Builder
-    public Product(Long categoryId, String name, String description, BigDecimal price, Integer stock) {
-        this.categoryId = categoryId;
+    public Category(String name, Category parent) {
         this.name = name;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
+        this.parent = parent;
     }
 }

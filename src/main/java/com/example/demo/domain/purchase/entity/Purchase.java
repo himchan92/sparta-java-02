@@ -1,6 +1,8 @@
-package com.example.demo.domain.product.entity;
+package com.example.demo.domain.purchase.entity;
 
-import com.example.demo.domain.category.entity.Category;
+import com.example.demo.domain.purchase.enums.PurchaseStatus;
+import com.example.demo.domain.user.entity.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,30 +24,23 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Product {
+public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    //실습위한 임시처리로 실무에서는 비추
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "category_id")
-    //Category category;
-    @Column(nullable = false)
-    Long categoryId;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
 
     @Column(nullable = false)
-    String name;
+    BigDecimal totalPrice;
 
-    @Column(columnDefinition = "TEXT")
-    String description;
-
-    @Column(nullable = false)
-    BigDecimal price;
-
-    @Column(nullable = false)
-    Integer stock;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    PurchaseStatus status;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -56,11 +51,9 @@ public class Product {
     LocalDateTime updatedAt;
 
     @Builder
-    public Product(Long categoryId, String name, String description, BigDecimal price, Integer stock) {
-        this.categoryId = categoryId;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
+    public Purchase(User user, BigDecimal totalPrice, PurchaseStatus status) {
+        this.user = user;
+        this.totalPrice = totalPrice;
+        this.status = status;
     }
 }

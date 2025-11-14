@@ -27,7 +27,7 @@ public class User {
     Long id;
 
     @Column(nullable = false, length = 50)
-    String username;
+    String name;
 
     @Column(nullable = false, unique = true)
     String email;
@@ -44,8 +44,8 @@ public class User {
     LocalDateTime updatedAt;
 
     @Builder
-    public User(String username, String email, String passwordHash) {
-        this.username = username;
+    public User(String name, String email, String passwordHash) {
+        this.name = name;
         this.email = email;
         this.passwordHash = passwordHash;
     }

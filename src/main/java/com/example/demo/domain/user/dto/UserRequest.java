@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 public class UserRequest {
 
     @NotNull
-    String username;
+    String name;
 
     @Email
     String email;
