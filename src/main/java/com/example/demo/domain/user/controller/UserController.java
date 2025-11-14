@@ -1,7 +1,7 @@
 package com.example.demo.domain.user.controller;
 
 import com.example.demo.common.response.ApiResponse;
-import com.example.demo.domain.user.dto.UserCreateRequest;
+import com.example.demo.domain.user.dto.UserRequest;
 import com.example.demo.domain.user.dto.UserResponse;
 import com.example.demo.domain.user.service.UserService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ApiResponse<UserResponse> create(@Valid @RequestBody UserCreateRequest request) {
+    public ApiResponse<UserResponse> create(@Valid @RequestBody UserRequest request) {
         return ApiResponse.success(userService.create(request));
     }
 }
