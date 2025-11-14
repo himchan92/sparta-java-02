@@ -1,5 +1,6 @@
 package com.example.demo.domain.product.dto;
 
+import com.example.demo.domain.category.entity.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -15,7 +16,7 @@ public class ProductResponse {
 
     Long id;
 
-    Long categoryId;
+    Category category;
 
     String name;
 

@@ -2,6 +2,8 @@ package com.example.demo.domain.product.service;
 
 import com.example.demo.common.exception.ServiceException;
 import com.example.demo.common.exception.ServiceExceptionCode;
+import com.example.demo.domain.category.entity.Category;
+import com.example.demo.domain.category.repository.CategoryRepository;
 import com.example.demo.domain.product.dto.ProductRequest;
 import com.example.demo.domain.product.dto.ProductResponse;
 import com.example.demo.domain.product.entity.Product;
@@ -18,6 +20,7 @@ import java.util.List;
 public class ProductService {
 
     private ProductRepository productRepository;
+    private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
     public List<ProductResponse> getAll() {
@@ -31,7 +34,7 @@ public class ProductService {
 
         return ProductResponse.builder()
                 .id(product.getId())
-                .categoryId(product.getCategoryId())
+                .category(product.getCategory())
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())

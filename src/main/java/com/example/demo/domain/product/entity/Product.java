@@ -28,12 +28,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    Category category;
+
     //실습위한 임시처리로 실무에서는 비추
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "category_id")
-    //Category category;
-    @Column(nullable = false)
-    Long categoryId;
+//    @Column(nullable = false)
+//    Long categoryId;
 
     @Column(nullable = false)
     String name;
@@ -56,8 +57,8 @@ public class Product {
     LocalDateTime updatedAt;
 
     @Builder
-    public Product(Long categoryId, String name, String description, BigDecimal price, Integer stock) {
-        this.categoryId = categoryId;
+    public Product(Category category, String name, String description, BigDecimal price, Integer stock) {
+        this.category = category;
         this.name = name;
         this.description = description;
         this.price = price;
